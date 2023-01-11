@@ -529,7 +529,7 @@ end
 		position_x = scaling.scale_w(-1);
 		
 		position_y_scaling = scaling.scale_h(-20);
-		position_y_constant = scaling.scale_h(-32);
+		position_y_constant = scaling.scale_h(-33);
 	
 		visible = true,
 		
@@ -541,7 +541,7 @@ end
 			visible = true,
 			color = 0xFF000010,
 			border_visible = true,
-			border_color = 0xFFFFFFFF,
+			border_color = 0xAAFFFFFF,
 			border_sizes = '-1,-1,-1,-1',
 			border_flags = FontBorderFlags.Top+FontBorderFlags.Bottom+FontBorderFlags.Left,
 			
@@ -554,7 +554,7 @@ end
 		position_x = scaling.scale_w(-500);
 		
 		position_y_scaling = scaling.scale_h(-20);
-		position_y_constant = scaling.scale_h(-32);
+		position_y_constant = scaling.scale_h(-33);
 	
 		visible = true,
 		
@@ -564,7 +564,7 @@ end
 			height = scaling.scale_h(-46.0),
 		
 			visible = true,
-			color = 0x33000010,
+			color = 0x44000020,
 			border_visible = true,
 			border_color = 0xAAFFFFFF,
 			border_sizes = '-1,1,1,1',
@@ -681,7 +681,7 @@ end
 		position_x = scaling.scale_w(-148);
 		
 		position_y_scaling = scaling.scale_h(-20);
-		position_y_constant = scaling.scale_h(-36);	
+		position_y_constant = scaling.scale_h(-38);	
 	
 		right_justified = true,
 		background = T{
@@ -701,7 +701,7 @@ end
 		position_x = scaling.scale_w(-148);
 		
 		position_y_scaling = scaling.scale_h(-20);
-		position_y_constant = scaling.scale_h(-36);	
+		position_y_constant = scaling.scale_h(-38);	
 	
 	
 		right_justified = true,
@@ -712,7 +712,10 @@ end
 			width = scaling.scale_w(-50.0),
 			height = scaling.scale_h(-10.0),
 			
-
+			border_visible = true,
+			border_color = 0xCCFFFFFF,
+			border_sizes = '1,1,-1,1',
+			border_flags = FontBorderFlags.Right,
 			
 			
 		}
@@ -766,34 +769,6 @@ end
 	
 	
 		position_x = scaling.scale_w(-1),
-		position_y = scaling.scale_h(-16),
-		
-		size_y_scaling = scaling.scale_h(-20),
-		size_y_constant = scaling.scale_h(-15),
-		
-		auto_resize = false;
-		
-		background = T{
-		
-		
-		
-		
-			width = scaling.scale_w(-137.0),
-			height = scaling.scale_h(-50.0),
-			visible = true;
-			color = 0xFF000010;
-			border_visible = true,
-			border_color = 0xFFFFFFFF,
-			border_sizes = '-1,-1,-1,-1',
-			border_flags = FontBorderFlags.Bottom+FontBorderFlags.Top+FontBorderFlags.Left,
-			
-		}
-	}
-	
-	local fbackleftimage = T{
-	
-	
-		position_x = scaling.scale_w(-500),
 		position_y = scaling.scale_h(-15),
 		
 		size_y_scaling = scaling.scale_h(-20),
@@ -806,10 +781,38 @@ end
 		
 		
 		
+			width = scaling.scale_w(-137.0),
+			height = scaling.scale_h(-50.0),
+			visible = true;
+			color = 0xFF000020;
+			border_visible = true,
+			border_color = 0xAAFFFFFF,
+			border_sizes = '-1,-1,-1,-1',
+			border_flags = FontBorderFlags.Bottom+FontBorderFlags.Top+FontBorderFlags.Left,
+			
+		}
+	}
+	
+	local fbackleftimage = T{
+	
+	
+		position_x = scaling.scale_w(-500),
+		position_y = scaling.scale_h(-14),
+		
+		size_y_scaling = scaling.scale_h(-20),
+		size_y_constant = scaling.scale_h(-19),
+		
+		auto_resize = false;
+		
+		background = T{
+		
+		
+		
+		
 			width = scaling.scale_w(363.0),
 			height = scaling.scale_h(-50.0),
 			visible = true;
-			color = 0x29000010;
+			color = 0x44000020;
 			border_visible = true,
 			border_color = 0xAAFFFFFF,
 			border_sizes = '-1,1,1,1',
@@ -876,7 +879,7 @@ end
 		left_justified = true,
 		background = T{
 			visible = true,
-			color = 0xffb83773,
+			color = 0xFFDD0000,
 			
 			
 			width = scaling.scale_w(10.0),
@@ -979,7 +982,7 @@ end
 		
 		background = T{
 			visible = true,
-			color = 0x22000000,
+			color = 0x22FFFFFF,
 			
 			width = 0,
 			height = scaling.scale_f(-24.0),
@@ -1192,6 +1195,19 @@ end
 	end	
 
 
+	--CREATE CASTBAR LABEL
+	for x = 1, 6 do
+	castbar[x] = fonts.new(fcastbar);
+	castbar[x].position_y = scaling.scale_h(((x-1) * -20) + -21);
+	castbar[x].position_x = scaling.scale_w(-500);
+	end
+
+	--CREATE RECCASTBAR LABEL
+	for x = 1, 6 do
+	reccastbar[x] = fonts.new(freccastbar);
+	reccastbar[x].position_y = scaling.scale_h(((x-1) * -20) + -21);
+	reccastbar[x].position_x = scaling.scale_w(-1);
+	end
 	end);
 
 
@@ -1754,7 +1770,7 @@ backleftimage.background.height = partycount * backleftimage.size_y_scaling + ba
 			
 		namelabel[x].text = string.sub(party:GetMemberName(partycount-x),1,8);
 		
-	if(party:GetMemberServerId(x) == party:GetAlliancePartyLeaderServerId1(x) and party:GetMemberServerId(x) ~= 0) then
+	if(party:GetMemberServerId(partycount-x) == party:GetAlliancePartyLeaderServerId1(partycount-x) and party:GetMemberServerId(x) ~= 0) then
 	namelabel[x].text = namelabel[x].text.."*";
 	end		
 		
@@ -1820,7 +1836,9 @@ backleftimage.background.height = partycount * backleftimage.size_y_scaling + ba
 		if (has_value(buffids,9)) then
 		statuslabel[x].text = statuslabel[x].text.."CURS'd ";
 		end	
-
+		if (has_value(buffids,42)) then
+		statuslabel[x].text = statuslabel[x].text.."R ";
+		end	
 		end
 		
 
@@ -1886,7 +1904,7 @@ backleftimage.background.height = partycount * backleftimage.size_y_scaling + ba
 
 		mpp = party:GetMemberMPPercent(partycount-x);
 		mpp = mpp / 100;
-				if (mpp == 	1) then
+				if (mpp == 	1 or mpp == 0) then
 					manafront[x].background.border_visible = false; 
 				else
 					manafront[x].background.border_visible = true; 
@@ -1941,8 +1959,10 @@ backleftimage.background.height = partycount * backleftimage.size_y_scaling + ba
 			tppp = true;
 			end
 		end		
-
-		tplabel[x].text = tpp;				
+		
+		if (tppp == true) then
+		tplabel[x].text = tpp;
+		end
 	end
 			
 
@@ -2002,6 +2022,8 @@ ashita.events.register('text_in', 'text_in_cb', function (e)
 		local words = mysplit(msg);
 		
 		local targetafter = indexOf(words, "casting");
+		
+		if (targetafter ~= nil) then
 
 		local caster = words[targetafter-1];
 		
@@ -2025,7 +2047,7 @@ ashita.events.register('text_in', 'text_in_cb', function (e)
 	
 		end
 	
-	
+		end
 	
 	
 	end
@@ -2075,7 +2097,19 @@ ashita.events.register('text_in', 'text_in_cb', function (e)
 		if (string.match(msg, "Cure V")) then
 			spell = "CUR5";
 			duration = 2.5;
-		end				
+		end			
+		if (string.match(msg, "Regen o")) then
+			spell = "REG1";
+			duration = 4;
+		end		
+		if (string.match(msg, "Regen II")) then
+			spell = "REG2";
+			duration = 4;
+		end		
+		if (string.match(msg, "Regen III")) then
+			spell = "REG3";
+			duration = 5;
+		end						
 		if (string.match(msg, "Poisona")) then
 			spell = "POI.a";
 			duration = 2;
